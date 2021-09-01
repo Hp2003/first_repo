@@ -34,11 +34,6 @@ void checkF(vector <int>& f , int size){
     if (count == size)
     {
         high_real_f(f , size);
-        for (int i = 0; i < size; i++)
-        {
-            cout<<f[i]<<endl;
-        }
-        
     }    
      else if(count1 == 0){
        less_real_f( f , size); 
@@ -57,21 +52,24 @@ float mean(int arr[], int size)
 /*********************************************************************************************/
 float a_mean(int arr[], int size, int f[])
 {
-    // checkF(f , size);
+    vector<int> f1(f , f + size/2);
+    checkF(f1 , size);
     float fx = 1;
     float sum = 0;
     float Fsum = 0;
     for (int i = 0; i < size; i++)
     {
-        fx = arr[i] * f[i];
+        fx = arr[i] * f1[i];
         sum = sum + fx;
-        Fsum = Fsum + f[i];
+        Fsum = Fsum + f1[i];
     }
     return sum / Fsum;
 }
 /***********************************************************************************************************/
 float ranged_mean(int a[], int size, int f[])
 {
+    vector<int>f1(f , f + size/2);
+    checkF(f1 , size);
     float fx = 0;
     float sum = 0;
     float Fsum = 0;
@@ -82,10 +80,10 @@ float ranged_mean(int a[], int size, int f[])
         x[i] = (a[i] + a[i + 1]) / 2; // finding x
         if (i % 2 == 0)               // finding fx / sum of fx
         {
-            fx += x[i] * f[temp];
+            fx += x[i] * f1[temp];
             temp++;
         }
-        sum = sum + f[i];
+        sum = sum + f1[i];
     }
     return fx / sum;
 }
@@ -93,6 +91,8 @@ float ranged_mean(int a[], int size, int f[])
 float assumed_mean(int a[], int size, int f[])
 {
     // For find A
+      vector <int> f1(f , f + size/2);
+    checkF(f1 , size);
     int A = (0 + size) / 2;
     float fd = 0;
     int n = 0;
@@ -100,8 +100,8 @@ float assumed_mean(int a[], int size, int f[])
     for (int i = 0; i < size; i++)
     {
         d = a[i] - a[A];
-        fd += (f[i] * d);
-        n = n + f[i];
+        fd += (f1[i] * d);
+        n = n + f1[i];
     }
     return a[A] + (fd / n);
 }
@@ -137,10 +137,12 @@ float Assumed_mean_with_range(int a[], int size, int f[])
 /*****************************************************************************************************************/
 float weighted_mean(int a[] , int size , float f[]){
     float ans , tem = 0 , W = 0; 
+      vector <int> f1(f , f + size/2);
+    checkF(f1 , size);
     for (int i = 0; i < size; i++)
     {
-        tem += a[i] * f[i];
-        W = W+f[i];
+        tem += a[i] * f1[i];
+        W = W+f1[i];
     }
     return tem/W;
 }
@@ -157,10 +159,12 @@ float harmonic_mean_without_F(int a[] , int size){
 /********************************************************************************************************************/
 float harmonic_mean(float a[] , int size , int f[]){
     float sum = 0 , fsum = 0;
+    vector <int> f1(f , f + size/2);
+    checkF(f1 , size);
     for (int i = 0; i < size; i++)
     {
-        sum += f[i]/a[i];
-        fsum = fsum + f[i];
+        sum += f1[i]/a[i];
+        fsum = fsum + f1[i];
     }
     return fsum/sum;
 }
